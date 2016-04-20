@@ -39,14 +39,17 @@ app.use(bodyParser());
 
 app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, PUT, DELETE, GET, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'content-type');
     next();
 });
 
 app.get("/todos", function(req, res) {
-    setTimeout(function(){
-        res.send(JSON.stringify(todos));
-    }, 4000);
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(todos));
+    //setTimeout(function(){
+    //    res.send(JSON.stringify(todos));
+    //}, 2000);
 });
 
 app.get("/todo/:id", function(req, res) {

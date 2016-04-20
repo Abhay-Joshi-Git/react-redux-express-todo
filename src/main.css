@@ -1,3 +1,43 @@
+body {
+    margin-top: 10px;
+}
+
+.pos-center {
+    text-align: center;
+}
+
+.task {
+    font-size: larger;
+    margin-left: 5px;
+}
+
+.bigger-icon {
+    font-size: large;
+    margin-top: 4px;
+}
+
+.header-icon-padding {
+    margin-right: 5px;
+}
+
+.form-control {
+    display: inline;
+    width: 70%;
+    margin-right: 5px;
+}
+
+.container-color {
+    background-color: #f8f8f8;
+}
+
+.panel {
+    background-color: inherit;
+}
+
+button {
+    margin-left: 3px;
+}
+
 .loader {
     border: 5px solid #f3f3f3;
     border-radius: 50%;

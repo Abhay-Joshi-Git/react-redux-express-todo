@@ -11,6 +11,7 @@
   "dependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.6.5",
     "babel-preset-stage-2": "^6.5.0",
+    "bootstrap": "^3.3.6",
     "jquery": "^2.2.3",
     "lodash": "^4.11.1",
     "react": "^15.0.1",

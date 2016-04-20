@@ -1,53 +1,84 @@
 import React from "react";
 import * as Redux from "redux"
 import { connect } from "react-redux";
-import { addToDo, loadToDos, setLoadingToDos } from "../actions.js";
+import { addToDo, loadToDos, updateToDo, setLoadingToDos, deleteToDo } from "../actions.js";
 
 var todoId = 0;
 
 class ToDoList extends React.Component {
+    componentDidMount() {
+        this.props.loadToDos();
+    }
+
     render() {
         return (
-            <div>
-                <button
-                    onClick={
-                    () => this.props.loadToDos()
-                }>
-                    Load ToDos
-                </button>
-                <button
-                    onClick={
-                    () => this.props.addToDo({
-                        id: 9,
-                        task: 'Test',
-                        completed: false
-                    })
-                }>
-                    Add Test
-                </button>
-                <br />
-                <br />
-                {this.getToDosHTML()}
+            <div className="row">
+                <div className="col-sm-offset-1 col-sm-9">
+                    <a
+                        className="glyphicon glyphicon-refresh bigger-icon"
+                        onClick={this.props.loadToDos}>
+                    </a>
+                    <span className="pull-right col-sm-6">
+                    <span><a
+                        className="pull-right glyphicon glyphicon-plus-sign bigger-icon header-icon-padding"
+                        onClick={
+                        () => {
+                            let task = this.taskInput.value;
+                            this.taskInput.value = '';
+                            this.props.addToDo({
+                                id: getHighestToDoId(this.props.ToDos) + 1,
+                                task: task,
+                                completed: false
+                            })
+                        }
+                    }>
+                    </a></span>
+                    <input
+                        type="text"
+                        className="pull-right form-control"
+                        placeholder="new task..."
+                        ref={(input) => {
+                            this.taskInput = input;
+                        }}
+                        />
+                    </span>
+                    <br />
+                    <br />
+                    {this.getToDosHTML()}
+                </div>
             </div>
         )
     }
 
     getToDosHTML() {
-        console.log(this.props);
         if (this.props.loadingToDos) {
             return this.getLoadingHTML();
         }
         var ToDoList = this.props.ToDos.map(todo => {
                 return (
-                    <div key={todo.id}>
-                        <input type="checkbox" defaultChecked={todo.completed} /> {todo.task}
+                    <div key={todo.id} className="well">
+                        <input
+                            type="checkbox"
+                            defaultChecked={todo.completed}
+                            onClick={() => this.props.updateToDo({
+                                    ...todo,
+                                    completed: !todo.completed
+                                })
+                            }
+                            />
+                        <span className="task">{todo.task}</span>
+                        <a className="pull-right glyphicon glyphicon-remove-sign bigger-icon"
+                           onClick={() => this.props.deleteToDo(todo.id)}
+                            />
                     </div>
                 );
             }
         );
-        return <div>
+        return (
+            <div>
                 {ToDoList}
             </div>
+        );
     }
 
 
@@ -60,7 +91,7 @@ class ToDoList extends React.Component {
 }
 
 function getHighestToDoId(ToDos) {
-    ToDos.reduce((max, current) => {
+    return ToDos.reduce((max, current) => {
         if (max < current.id) {
             return current.id
         } else {
@@ -78,13 +109,18 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addToDo : () => {
-            dispatch(addToDo());
+        addToDo: (todo) => {
+            dispatch(addToDo(todo));
         },
-        loadToDos : () => {
-            console.log(dispatch)
+        loadToDos: () => {
             dispatch(setLoadingToDos(true));
             dispatch(loadToDos(dispatch));
+        },
+        updateToDo: (todo) => {
+            dispatch(updateToDo(todo));
+        },
+        deleteToDo: (id) => {
+            dispatch(deleteToDo(id));
         },
         setLoadingToDos: () => {
             dispatch(setLoadingToDos());
@@ -99,25 +135,3 @@ var App = connect(
 
 
 export default App;
-
-
-//const AppOriginal = () => (
-//    <div>
-//        <button
-//            onClick={
-//                () => {store.dispatch({type: "ADD", todo: "Test"})}
-//            }
-//            >
-//            Add Test
-//        </button>
-//
-//        <br />
-//        <br />
-//
-//        {store.getState().map(todo => <div key={todoId++}>todo</div>)}
-//
-//
-//    </div>
-//
-//);
-
