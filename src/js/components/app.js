@@ -59,8 +59,8 @@ class ToDoList extends React.Component {
                     <div key={todo.id} className="well">
                         <input
                             type="checkbox"
-                            defaultChecked={todo.completed}
-                            onClick={() => this.props.updateToDo({
+                            checked={todo.completed}
+                            onChange={() => this.props.updateToDo({
                                     ...todo,
                                     completed: !todo.completed
                                 })
