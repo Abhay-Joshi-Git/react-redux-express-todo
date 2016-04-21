@@ -1,7 +1,7 @@
 import React from "react";
 import * as Redux from "redux"
 import { connect } from "react-redux";
-import { addToDo, loadToDos, updateToDo, setLoadingToDos, deleteToDo } from "../actions.js";
+import { addToDo, loadToDos, updateToDo, deleteToDo } from "../actions.js";
 
 var todoId = 0;
 
@@ -113,7 +113,6 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(addToDo(todo));
         },
         loadToDos: () => {
-            dispatch(setLoadingToDos(true));
             dispatch(loadToDos(dispatch));
         },
         updateToDo: (todo) => {
@@ -121,16 +120,13 @@ const mapDispatchToProps = (dispatch) => {
         },
         deleteToDo: (id) => {
             dispatch(deleteToDo(id));
-        },
-        setLoadingToDos: () => {
-            dispatch(setLoadingToDos());
         }
     };
 };
 
 var App = connect(
     mapStateToProps,
-    mapDispatchToProps//{ addToDo, loadToDos, setLoadingToDos }
+    mapDispatchToProps//{ addToDo, loadToDos }
 )(ToDoList);
 
 
