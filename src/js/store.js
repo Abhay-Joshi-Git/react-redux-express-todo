@@ -8,5 +8,11 @@ var reducers = Redux.combineReducers({
     loadingToDos
 });
 
-export default Redux.createStore(reducers, Redux.applyMiddleware(promiseMiddleware) );
+export default Redux.createStore(
+    reducers,
+    Redux.compose(
+        Redux.applyMiddleware(promiseMiddleware),
+        window.devToolsExtension ? window.devToolsExtension() : f => f
+    )
+);
 
