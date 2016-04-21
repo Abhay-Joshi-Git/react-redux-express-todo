@@ -1,7 +1,7 @@
 import React from "react";
-import * as Redux from "redux"
 import { connect } from "react-redux";
-import { addToDo, loadToDos, updateToDo, deleteToDo } from "../actions.js";
+import { addToDo, loadToDos } from "../actions.js";
+import ToDo from "./ToDo.js";
 
 var todoId = 0;
 
@@ -54,29 +54,9 @@ class ToDoList extends React.Component {
         if (this.props.loadingToDos) {
             return this.getLoadingHTML();
         }
-        var ToDoList = this.props.ToDos.map(todo => {
-                return (
-                    <div key={todo.id} className="well">
-                        <input
-                            type="checkbox"
-                            defaultChecked={todo.completed}
-                            onClick={() => this.props.updateToDo({
-                                    ...todo,
-                                    completed: !todo.completed
-                                })
-                            }
-                            />
-                        <span className="task">{todo.task}</span>
-                        <a className="pull-right glyphicon glyphicon-remove-sign bigger-icon"
-                           onClick={() => this.props.deleteToDo(todo.id)}
-                            />
-                    </div>
-                );
-            }
-        );
         return (
             <div>
-                {ToDoList}
+                {this.props.ToDos.map(todo => <ToDo key={todo.id} todo={todo}/>)}
             </div>
         );
     }
@@ -109,7 +89,7 @@ const mapStateToProps = (state) => {
 
 var App = connect(
     mapStateToProps,
-    { addToDo, loadToDos, updateToDo, deleteToDo }
+    { addToDo, loadToDos }
 )(ToDoList);
 
 export default App;
