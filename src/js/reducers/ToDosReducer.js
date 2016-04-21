@@ -1,16 +1,11 @@
 import ToDoReducer from "./ToDoReducer.js";
 
 const ToDoListReducer = (state = [], action = {}) => {
-
-    if (action.error) {
-        return state;
-    }
-
     switch (action.type) {
         case "ADD_TODO":
-            return [...state, action.payload];
+            return [...state, action.todo];
         case "LOAD_TODOS":
-            return action.payload;
+            return action.data;
         default :
             return state;
     }

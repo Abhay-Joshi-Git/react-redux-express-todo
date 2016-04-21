@@ -107,27 +107,9 @@ const mapStateToProps = (state) => {
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addToDo: (todo) => {
-            dispatch(addToDo(todo));
-        },
-        loadToDos: () => {
-            dispatch(loadToDos(dispatch));
-        },
-        updateToDo: (todo) => {
-            dispatch(updateToDo(todo));
-        },
-        deleteToDo: (id) => {
-            dispatch(deleteToDo(id));
-        }
-    };
-};
-
 var App = connect(
     mapStateToProps,
-    mapDispatchToProps//{ addToDo, loadToDos }
+    { addToDo, loadToDos, updateToDo, deleteToDo }
 )(ToDoList);
-
 
 export default App;
