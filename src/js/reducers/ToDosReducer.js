@@ -3,6 +3,7 @@ import ToDoReducer from "./ToDoReducer.js";
 const ToDoListReducer = (state = [], action = {}) => {
 
     if (action.error) {
+        console.log(action.payload);
         return state;
     }
 

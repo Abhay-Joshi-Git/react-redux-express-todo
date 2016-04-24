@@ -7,23 +7,25 @@ const setLoadingToDos = (loading) => ({
     loadingToDos: loading
 });
 
-const loadToDosAPI = (dispatch) => {
-    dispatch(setLoadingToDos(true));
-
-    return fetch(
-        'http://localhost:3000/todos'
-    ).then((response) => {
-            //check fetch API - https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+const loadToDosAPI = () => {
+    return fetch('http://localhost:3000/todos')
+        .then((response) => {
             if (response.ok) {
-                dispatch(setLoadingToDos(false));
                 return response.json();
             } else {
-                dispatch(setLoadingToDos(false));
                 return Promise.reject(response.statusText);
             }
         });
 };
-export const loadToDos = createAction('LOAD_TODOS', loadToDosAPI);
+
+export const loadToDos = createAction('LOAD_TODOS', (dispatch) => {
+    dispatch(setLoadingToDos(true));
+    try {
+        return loadToDosAPI();
+    } finally {
+        dispatch(setLoadingToDos(false));
+    }
+});
 
 const addToDoAPI = (todo) => fetch(
     'http://localhost:3000/todo',

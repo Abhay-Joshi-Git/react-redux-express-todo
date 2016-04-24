@@ -46,7 +46,10 @@ app.use(function(req, res, next) {
 
 app.get("/todos", function(req, res) {
     res.setHeader('Content-Type', 'application/json');
+
     res.send(JSON.stringify(todos));
+    //res.status(500).send("could not send it right now, handle this!!");
+
     //setTimeout(function(){
     //    res.send(JSON.stringify(todos));
     //}, 2000);
