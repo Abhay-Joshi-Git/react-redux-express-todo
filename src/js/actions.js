@@ -18,14 +18,20 @@ const loadToDosAPI = () => {
         });
 };
 
-export const loadToDos = createAction('LOAD_TODOS', (dispatch) => {
-    dispatch(setLoadingToDos(true));
-    try {
-        return loadToDosAPI();
-    } finally {
-        dispatch(setLoadingToDos(false));
-    }
-});
+/*
+* what is happening here ? - we are using 2 middle-wares - provided by redux-thunk and redux-promise
+* reason - thunk as we want to use dispatch for loading actions. promise for sugar allows us to return promise
+* */
+export const loadToDos = () => (dispatch) => {
+    dispatch(createAction('LOAD_TODOS', async () => {
+        dispatch(setLoadingToDos(true));
+        try {
+            return await loadToDosAPI();
+        } finally {
+            dispatch(setLoadingToDos(false));
+        }
+    })());
+};
 
 const addToDoAPI = (todo) => fetch(
     'http://localhost:3000/todo',
