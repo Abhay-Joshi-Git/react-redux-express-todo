@@ -10,7 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.6.5",
+    "babel-polyfill": "^6.7.4",
     "babel-preset-stage-2": "^6.5.0",
+    "babel-preset-stage-3": "^6.5.0",
     "bootstrap": "^3.3.6",
     "jquery": "^2.2.3",
     "lodash": "^4.11.1",

@@ -46,10 +46,10 @@ app.use(function(req, res, next) {
 
 app.get("/todos", function(req, res) {
     res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify(todos));
-    //setTimeout(function(){
-    //    res.send(JSON.stringify(todos));
-    //}, 2000);
+    //res.send(JSON.stringify(todos));
+    setTimeout(function(){
+        res.send(JSON.stringify(todos));
+    }, 2000);
 });
 
 app.get("/todo/:id", function(req, res) {

@@ -5,6 +5,7 @@ const ToDoListReducer = (state = [], action = {}) => {
         case "ADD_TODO":
             return [...state, action.todo];
         case "LOAD_TODOS":
+            console.log(action);
             return action.data;
         default :
             return state;

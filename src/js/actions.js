@@ -6,34 +6,43 @@ const setLoadingToDos = (loading) => ({
     loadingToDos: loading
 });
 
+
+const loadToDosAPI = () => {
+    return fetch(
+        'http://localhost:3000/todos'
+    ).then((response) => {
+            //check fetch API - https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+            if (response.ok) {
+                //we got the response but not the data yet. ya, that's right!!! it's another promise.
+                return response.json().then((data) => {
+                    return data;
+                });
+            } else {
+                return Promise.reject(response.statusText);
+            }
+        });
+};
+
 export const loadToDos = () => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(setLoadingToDos(true));
-
-        fetch(
-            'http://localhost:3000/todos'
-        ).then((response) => {
-                //check fetch API - https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-                if (response.ok) {
-                    //we got the response but not the data yet. ya, that's right!!! it's another promise.
-                    response.json().then((data) => {
-                        dispatch(setLoadingToDos(false));
-                        dispatch({
-                            type: 'LOAD_TODOS',
-                            data: data
-                        });
-                    });
-                } else {
-                    dispatch(setLoadingToDos(false));
-
-                    // send error so that UI can be updated to show the error
-                    //dispatch({
-                    //    type: 'APP_ERROR',
-                    //    error: response.statusText
-                    //});
-                }
+        try {
+            let data = await loadToDosAPI();
+            dispatch({
+                type: 'LOAD_TODOS',
+                data: data
             });
+        } catch (err) {
+            // send error so that UI can be updated to show the error
+            //dispatch({
+            //    type: 'APP_ERROR',
+            //    error: response.statusText
+            //});
+        } finally {
+            dispatch(setLoadingToDos(false));
+        }
     };
+
 };
 
 export const addToDo = (todo) => {
