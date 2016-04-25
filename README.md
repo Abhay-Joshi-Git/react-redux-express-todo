@@ -19,5 +19,5 @@ npm start
 ```
 1. master - code with redux-promise
 2. redux-thunk - code with redux-thunk , async-await
-3. redux-thunk-promise - code with redux-thunk and redux-promise in combination, with asyn-await
+3. thunk-promise-asyn-await - code with redux-thunk and redux-promise in combination, with asyn-await
 ```
