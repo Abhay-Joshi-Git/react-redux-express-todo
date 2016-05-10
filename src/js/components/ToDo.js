@@ -9,16 +9,17 @@ class ToDo extends React.Component {
             <div className="well">
                 <input
                     type="checkbox"
-                    checked={todo.completed}
-                    onChange={() => this.props.updateToDo({
-                                    ...todo,
-                                    completed: !todo.completed
-                                })
-                            }
+                    checked={todo.get("completed")}
+                    onChange={() => this.props.updateToDo(
+                        todo.set("completed", !todo.get("completed"))
+                    )}
                     />
-                <span className="task">{todo.task}</span>
-                <a className="pull-right glyphicon glyphicon-remove-sign bigger-icon"
-                   onClick={() => this.props.deleteToDo(todo.id)}
+                <span className="task">
+                    {todo.get("task")}
+                </span>
+                <a
+                    className="pull-right glyphicon glyphicon-remove-sign bigger-icon"
+                    onClick={() => this.props.deleteToDo(todo.get("id"))}
                     />
             </div>
 

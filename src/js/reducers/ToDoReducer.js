@@ -1,16 +1,24 @@
 import _ from "lodash";
+import Immutable from "immutable";
 
-export default (state, action) => {
+const initialState = Immutable.List([]);
+
+export default (state = initialState, action) => {
     switch (action.type) {
         case "TOGGLE_TODO" :
             let todo = action.todo;
-            if (!todo) break;
-            let index = _.findIndex(state, {id: todo.id});
-            let updatedState = _.reject(state, {id: todo.id});
-            updatedState.splice(index, 0, todo);
-            return updatedState;
+            if (!todo) {
+                return state;
+            }
+            return state.map(item => {
+                if (item.get("id") === todo.get("id")) {
+                    return Immutable.Map(todo);
+                } else {
+                    return item;
+                }
+            })
         case "DELETE_TODO" :
-            return _.reject(state, {id: action.id});
+            return state.filter(item => item.get("id") !== action.id);
         default:
             return state;
     }

@@ -1,12 +1,15 @@
 import ToDoReducer from "./ToDoReducer.js";
+import Immutable from "immutable";
 
-const ToDoListReducer = (state = [], action = {}) => {
+const initialState = Immutable.List([]);
+
+const ToDoListReducer = (state = initialState, action = {}) => {
     switch (action.type) {
         case "ADD_TODO":
-            return [...state, action.todo];
+            return state.push(Immutable.Map(action.todo));
         case "LOAD_TODOS":
             console.log(action);
-            return action.data;
+            return Immutable.fromJS(action.data);
         default :
             return state;
     }

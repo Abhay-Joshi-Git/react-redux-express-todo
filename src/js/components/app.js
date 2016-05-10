@@ -56,7 +56,7 @@ class ToDoList extends React.Component {
         }
         return (
             <div>
-                {this.props.ToDos.map(todo => <ToDo key={todo.id} todo={todo}/>)}
+                {this.props.ToDos.map(todo => <ToDo key={todo.get("id")} todo={todo}/>)}
             </div>
         );
     }
@@ -72,8 +72,8 @@ class ToDoList extends React.Component {
 
 function getHighestToDoId(ToDos) {
     return ToDos.reduce((max, current) => {
-        if (max < current.id) {
-            return current.id
+        if (max < current.get("id")) {
+            return current.get("id")
         } else {
             return max;
         }

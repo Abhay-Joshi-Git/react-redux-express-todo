@@ -79,7 +79,9 @@ export const updateToDo = (todo) => {
                 headers: new Headers({
                     "Content-Type": "application/json"
                 }),
-                body: JSON.stringify({todo})
+                body: JSON.stringify({
+                    todo: todo.toJSON()
+                })
             }
         ).then((response) => {
                 if (response.ok) {
@@ -107,8 +109,3 @@ export const deleteToDo = (id) => (dispatch) => {
             }
         });
 };
-
-
-
-
-
