@@ -4,6 +4,9 @@ import Immutable from "immutable";
 const initialState = Immutable.List([]);
 
 const ToDoListReducer = (state = initialState, action = {}) => {
+    if (!action) {
+        return state;
+    }
     switch (action.type) {
         case "ADD_TODO":
             return state.push(Immutable.Map(action.todo));

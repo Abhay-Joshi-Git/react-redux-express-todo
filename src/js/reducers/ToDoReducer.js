@@ -4,6 +4,10 @@ import Immutable from "immutable";
 const initialState = Immutable.List([]);
 
 export default (state = initialState, action) => {
+    if (!action) {
+        return state;
+    }
+
     switch (action.type) {
         case "TOGGLE_TODO" :
             let todo = action.todo;

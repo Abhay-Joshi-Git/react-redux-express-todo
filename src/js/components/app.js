@@ -51,6 +51,13 @@ class ToDoList extends React.Component {
     }
 
     getToDosHTML() {
+        if (!this.props.ToDos) {
+            return (
+                <div>
+                    no ToDos!!
+                </div>
+            );
+        }
         if (this.props.loadingToDos) {
             return this.getLoadingHTML();
         }
@@ -81,9 +88,10 @@ function getHighestToDoId(ToDos) {
 }
 
 const mapStateToProps = (state) => {
+    console.log(state);
     return {
-        ToDos: state.ToDos,
-        loadingToDos: state.loadingToDos
+        ToDos: state.get("ToDos"),
+        loadingToDos: state.get("loadingToDos")
     };
 };
 
